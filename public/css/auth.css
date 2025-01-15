@@ -1,0 +1,141 @@
+#content #register-form,#content #login-form {
+    max-width: 90%;
+    width: 700px;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#register-form label,#login-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+#register-form .remember-me,#login-form .remember-me {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 50px auto;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+#register-form .remember-me input,#login-form .remember-me input {
+    margin: 0.3rem 0;
+}
+
+#register-form input,#login-form input,
+#register-form select,#login-form select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#register-form input:focus,#login-form input:focus
+#register-form select:focus,#login-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#register-form .error,#login-form .error {
+    display: block;
+    margin-top: -0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: #e74c3c;
+}
+
+#register-form button,#login-form button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#register-form button:hover,#login-form button:hover {
+    background-color: #0056b3;
+}
+
+#register-form a,#login-form a {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
+
+#register-form a:hover,#login-form a:hover {
+    color: #0056b3;
+}
+
+#register-form h3, #login-form h3 {
+    text-align: center;
+}
+
+.email-container, .reset-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.email-container h1, .reset-container h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.email-container label, .reset-container label {
+    color: #555;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+}
+#recover-email, #reset-email, #reset-password, #reset-password_confirmation {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.email-container button, .reset-container button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.email-container button:hover, .reset-container button:hover {
+    background-color: #0056b3;
+}
+.email-container .error, .reset-container .error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+.form-footer {
+    margin-top: 20px;
+}

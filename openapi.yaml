@@ -1,0 +1,2301 @@
+openapi: 3.0.3
+info:
+  title: PixelMarket API
+  description: API documentation for the PixelMarket platform.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000
+    description: Production server
+
+paths:
+  /games/{id}:
+    get:
+      summary: Get details of a specific game
+      tags:
+        - Games
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the game to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Game details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          description: Game not found
+    put:
+      summary: Update a specific game
+      tags:
+        - Games
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the game to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameUpdate'
+      responses:
+        '200':
+          description: Game updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Game not found
+
+  /games:
+    post:
+      summary: Create a new game
+      tags:
+        - Games
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameCreate'
+      responses:
+        '201':
+          description: Game created successfully
+        '400':
+          description: Invalid input
+
+  /images:
+    get:
+      summary: Get a list of images
+      tags:
+        - Images
+      responses:
+        '200':
+          description: List of images
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Image'
+    post:
+      summary: Upload images
+      tags:
+        - Images
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: Images uploaded successfully
+        '400':
+          description: Invalid input
+
+  /images/{id}:
+    get:
+      summary: Get details of a specific image
+      tags:
+        - Images
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the image to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Image details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+        '404':
+          description: Image not found
+    put:
+      summary: Update a specific image
+      tags:
+        - Images
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the image to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageUpdate'
+      responses:
+        '200':
+          description: Image updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Image not found
+    delete:
+      summary: Delete a specific image
+      tags:
+        - Images
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the image to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Image deleted successfully
+        '404':
+          description: Image not found
+
+  /graphics-cards:
+    get:
+      summary: Get a list of graphics cards
+      tags:
+        - Graphics Cards
+      responses:
+        '200':
+          description: List of graphics cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GraphicsCard'
+
+  /game-order-details/{id_order}/{id_game}:
+    get:
+      summary: Get details of a specific game order
+      tags:
+        - Game Order Details
+      parameters:
+        - name: id_order
+          in: path
+          required: true
+          description: ID of the order
+          schema:
+            type: integer
+        - name: id_game
+          in: path
+          required: true
+          description: ID of the game
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Game order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameOrderDetails'
+        '404':
+          description: Game order not found
+
+  /customer-support:
+    get:
+      summary: Get a list of customer support messages
+      tags:
+        - Customer Support
+      responses:
+        '200':
+          description: List of customer support messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HelpSupport'
+    post:
+      summary: Submit a customer support message
+      tags:
+        - Customer Support
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HelpSupportCreate'
+      responses:
+        '201':
+          description: Customer support message submitted successfully
+        '400':
+          description: Invalid input
+
+  /contact:
+    post:
+      summary: Submit a contact form
+      tags:
+        - Contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactForm'
+      responses:
+        '201':
+          description: Contact form submitted successfully
+        '400':
+          description: Invalid input
+
+  /categories:
+    get:
+      summary: Get a list of categories
+      tags:
+        - Categories
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+  /cards:
+    get:
+      summary: Get a list of cards
+      tags:
+        - Cards
+      responses:
+        '200':
+          description: List of cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+    post:
+      summary: Create a new card
+      tags:
+        - Cards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardCreate'
+      responses:
+        '201':
+          description: Card created successfully
+        '400':
+          description: Invalid input
+
+  /cards/{id}:
+    get:
+      summary: Get details of a specific card
+      tags:
+        - Cards
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the card to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Card details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '404':
+          description: Card not found
+    delete:
+      summary: Delete a specific card
+      tags:
+        - Cards
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the card to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Card deleted successfully
+        '404':
+          description: Card not found
+
+  /admin/users:
+    get:
+      summary: Get a list of users
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /admin/users/{id}:
+    delete:
+      summary: Delete a specific user
+      tags:
+        - Admin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User deleted successfully
+        '404':
+          description: User not found
+
+  /admin/administrators:
+    get:
+      summary: Get a list of administrators
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: List of administrators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Administrator'
+    post:
+      summary: Create a new administrator
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdministratorCreate'
+      responses:
+        '201':
+          description: Administrator created successfully
+        '400':
+          description: Invalid input
+
+  /processors:
+    get:
+      summary: Get a list of processors
+      tags:
+        - Processors
+      responses:
+        '200':
+          description: List of processors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Processor'
+    post:
+      summary: Create a new processor
+      tags:
+        - Processors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessorCreate'
+      responses:
+        '201':
+          description: Processor created successfully
+        '400':
+          description: Invalid input
+
+  /operating-systems:
+    get:
+      summary: Get a list of operating systems
+      tags:
+        - Operating Systems
+      responses:
+        '200':
+          description: List of operating systems
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OperatingSystem'
+    post:
+      summary: Create a new operating system
+      tags:
+        - Operating Systems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperatingSystemCreate'
+      responses:
+        '201':
+          description: Operating system created successfully
+        '400':
+          description: Invalid input
+
+  /memory-ram:
+    get:
+      summary: Get a list of memory RAM
+      tags:
+        - Memory RAM
+      responses:
+        '200':
+          description: List of memory RAM
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MemoryRAM'
+    post:
+      summary: Create a new memory RAM
+      tags:
+        - Memory RAM
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemoryRAMCreate'
+      responses:
+        '201':
+          description: Memory RAM created successfully
+        '400':
+          description: Invalid input
+
+  /items:
+    post:
+      summary: Create a new item
+      tags:
+        - Items
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+      responses:
+        '201':
+          description: Item created successfully
+        '400':
+          description: Invalid input
+
+  /items/{id}:
+    put:
+      summary: Update a specific item
+      tags:
+        - Items
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the item to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemUpdate'
+      responses:
+        '200':
+          description: Item updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Item not found
+    delete:
+      summary: Delete a specific item
+      tags:
+        - Items
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the item to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Item deleted successfully
+        '404':
+          description: Item not found
+
+  /help-support:
+    get:
+      summary: Get a list of help support messages
+      tags:
+        - Help Support
+      responses:
+        '200':
+          description: List of help support messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HelpSupport'
+    post:
+      summary: Create a new help support message
+      tags:
+        - Help Support
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HelpSupportCreate'
+      responses:
+        '201':
+          description: Help support message created successfully
+        '400':
+          description: Invalid input
+
+  /game-categories:
+    get:
+      summary: Get a list of game categories
+      tags:
+        - Game Categories
+      responses:
+        '200':
+          description: List of game categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameCategory'
+
+  /customer-support-administrators:
+    get:
+      summary: Get a list of customer support administrators
+      tags:
+        - Customer Support Administrators
+      responses:
+        '200':
+          description: List of customer support administrators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerSupportAdministrator'
+
+  /sellers:
+    get:
+      summary: Get a list of sellers
+      tags:
+        - Sellers
+      responses:
+        '200':
+          description: List of sellers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Seller'
+    post:
+      summary: Create a new seller
+      tags:
+        - Sellers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellerCreate'
+      responses:
+        '201':
+          description: Seller created successfully
+        '400':
+          description: Invalid input
+
+  /payments:
+    get:
+      summary: Get a list of payments
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: List of payments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+    post:
+      summary: Create a new payment
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCreate'
+      responses:
+        '201':
+          description: Payment created successfully
+        '400':
+          description: Invalid input
+
+  /orders:
+    get:
+      summary: Get a list of orders
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      summary: Create a new order
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '201':
+          description: Order created successfully
+        '400':
+          description: Invalid input
+
+  /notifications:
+    get:
+      summary: Get a list of notifications
+      tags:
+        - Notifications
+      responses:
+        '200':
+          description: List of notifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+    post:
+      summary: Create a new notification
+      tags:
+        - Notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationCreate'
+      responses:
+        '201':
+          description: Notification created successfully
+        '400':
+          description: Invalid input
+
+  /support-responses:
+    get:
+      summary: Get a list of support responses
+      tags:
+        - Support Responses
+      responses:
+        '200':
+          description: List of support responses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupportResponse'
+    post:
+      summary: Create a new support response
+      tags:
+        - Support Responses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportResponseCreate'
+      responses:
+        '201':
+          description: Support response created successfully
+        '400':
+          description: Invalid input
+
+  /support-responses/{id}:
+    get:
+      summary: Get details of a specific support response
+      tags:
+        - Support Responses
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the support response to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Support response details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportResponse'
+        '404':
+          description: Support response not found
+    put:
+      summary: Update a specific support response
+      tags:
+        - Support Responses
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the support response to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportResponseUpdate'
+      responses:
+        '200':
+          description: Support response updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Support response not found
+    delete:
+      summary: Delete a specific support response
+      tags:
+        - Support Responses
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the support response to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Support response deleted successfully
+        '404':
+          description: Support response not found
+
+  /shopping-cart-games:
+    get:
+      summary: Get a list of shopping cart games
+      tags:
+        - Shopping Cart Games
+      responses:
+        '200':
+          description: List of shopping cart games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShoppingCartGame'
+    post:
+      summary: Create a new shopping cart game
+      tags:
+        - Shopping Cart Games
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCartGameCreate'
+      responses:
+        '201':
+          description: Shopping cart game created successfully
+        '400':
+          description: Invalid input
+
+  /shopping-cart-games/{id}:
+    get:
+      summary: Get details of a specific shopping cart game
+      tags:
+        - Shopping Cart Games
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the shopping cart game to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Shopping cart game details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCartGame'
+        '404':
+          description: Shopping cart game not found
+    put:
+      summary: Update a specific shopping cart game
+      tags:
+        - Shopping Cart Games
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the shopping cart game to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCartGameUpdate'
+      responses:
+        '200':
+          description: Shopping cart game updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Shopping cart game not found
+    delete:
+      summary: Delete a specific shopping cart game
+      tags:
+        - Shopping Cart Games
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the shopping cart game to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Shopping cart game deleted successfully
+        '404':
+          description: Shopping cart game not found
+
+  /shopping-carts:
+    get:
+      summary: Get a list of shopping carts
+      tags:
+        - Shopping Carts
+      responses:
+        '200':
+          description: List of shopping carts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShoppingCart'
+    post:
+      summary: Create a new shopping cart
+      tags:
+        - Shopping Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCartCreate'
+      responses:
+        '201':
+          description: Shopping cart created successfully
+        '400':
+          description: Invalid input
+
+  /shopping-carts/{id}:
+    get:
+      summary: Get details of a specific shopping cart
+      tags:
+        - Shopping Carts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the shopping cart to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Shopping cart details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShoppingCart'
+        '404':
+          description: Shopping cart not found
+    put:
+      summary: Update a specific shopping cart
+      tags:
+        - Shopping Carts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the shopping cart to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCartUpdate'
+      responses:
+        '200':
+          description: Shopping cart updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Shopping cart not found
+    delete:
+      summary: Delete a specific shopping cart
+      tags:
+        - Shopping Carts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the shopping cart to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Shopping cart deleted successfully
+        '404':
+          description: Shopping cart not found
+
+  /wishlists:
+    get:
+      summary: Get a list of wishlists
+      tags:
+        - Wishlists
+      responses:
+        '200':
+          description: List of wishlists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wishlist'
+    post:
+      summary: Create a new wishlist
+      tags:
+        - Wishlists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WishlistCreate'
+      responses:
+        '201':
+          description: Wishlist created successfully
+        '400':
+          description: Invalid input
+
+  /wishlists/{id}:
+    get:
+      summary: Get details of a specific wishlist
+      tags:
+        - Wishlists
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the wishlist to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Wishlist details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wishlist'
+        '404':
+          description: Wishlist not found
+    put:
+      summary: Update a specific wishlist
+      tags:
+        - Wishlists
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the wishlist to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WishlistUpdate'
+      responses:
+        '200':
+          description: Wishlist updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Wishlist not found
+    delete:
+      summary: Delete a specific wishlist
+      tags:
+        - Wishlists
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the wishlist to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Wishlist deleted successfully
+        '404':
+          description: Wishlist not found
+
+  /game-info:
+    get:
+      summary: Get game information
+      tags:
+        - Game Info
+      responses:
+        '200':
+          description: Game information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameInfo'
+        '404':
+          description: Game not found
+
+  /faq:
+    get:
+      summary: Get FAQ
+      tags:
+        - FAQ
+      responses:
+        '200':
+          description: FAQ content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FAQ'
+
+  /edit-game:
+    put:
+      summary: Edit game details
+      tags:
+        - Edit Game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameEdit'
+      responses:
+        '200':
+          description: Game updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Game not found
+
+  /customer-support:
+    post:
+      summary: Submit a customer support message
+      tags:
+        - Customer Support
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSupportMessage'
+      responses:
+        '201':
+          description: Customer support message submitted successfully
+        '400':
+          description: Invalid input
+
+  /customer-support-list:
+    get:
+      summary: Get a list of customer support messages
+      tags:
+        - Customer Support List
+      responses:
+        '200':
+          description: List of customer support messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerSupportMessage'
+
+  /contact:
+    post:
+      summary: Submit a contact form
+      tags:
+        - Contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactForm'
+      responses:
+        '201':
+          description: Contact form submitted successfully
+        '400':
+          description: Invalid input
+
+  /checkout:
+    post:
+      summary: Process checkout
+      tags:
+        - Checkout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Checkout'
+      responses:
+        '201':
+          description: Checkout processed successfully
+        '400':
+          description: Invalid input
+
+  /game-add:
+    post:
+      summary: Add a new game
+      tags:
+        - Games
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                  format: float
+                description:
+                  type: string
+                stock:
+                  type: integer
+                operatingsystem:
+                  type: string
+                memoryram:
+                  type: integer
+                processor:
+                  type: string
+                graphicscard:
+                  type: string
+                storage:
+                  type: integer
+                categories:
+                  type: array
+                  items:
+                    type: integer
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: Game added successfully
+        '400':
+          description: Invalid input
+
+  /footer:
+    get:
+      summary: Get footer information
+      tags:
+        - Footer
+      responses:
+        '200':
+          description: Footer information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  year:
+                    type: integer
+                  links:
+                    type: array
+                    items:
+                      type: string
+
+  /shopping-cart:
+    get:
+      summary: Get shopping cart details
+      tags:
+        - Shopping Cart
+      responses:
+        '200':
+          description: Shopping cart details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  games:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Game'
+                  total_price:
+                    type: number
+                    format: float
+
+  /seller:
+    get:
+      summary: Get seller profile
+      tags:
+        - Seller
+      responses:
+        '200':
+          description: Seller profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sellerGames:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Game'
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+
+  /seller-support-messages:
+    get:
+      summary: Get seller support messages
+      tags:
+        - Seller Support Messages
+      responses:
+        '200':
+          description: List of seller support messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HelpSupport'
+
+  /search-results:
+    get:
+      summary: Get search results
+      tags:
+        - Search Results
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+
+  /review:
+    post:
+      summary: Add or edit a review
+      tags:
+        - Review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                review_rating:
+                  type: integer
+                review_comment:
+                  type: string
+      responses:
+        '200':
+          description: Review saved successfully
+        '400':
+          description: Invalid input
+
+  /profile:
+    get:
+      summary: Get user profile
+      tags:
+        - Profile
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  purchasedGames:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Game'
+                  seller:
+                    $ref: '#/components/schemas/Seller'
+
+  /order-success:
+    get:
+      summary: Get order success message
+      tags:
+        - Order Success
+      responses:
+        '200':
+          description: Order success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /seller-status:
+    get:
+      summary: Get seller status
+      tags:
+        - Seller Status
+      responses:
+        '200':
+          description: Seller status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  sales:
+                    type: integer
+                  rating:
+                    type: number
+                    format: float
+
+  /seller-games:
+    get:
+      summary: Get seller games
+      tags:
+        - Seller Games
+      responses:
+        '200':
+          description: List of seller games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+
+  /sale-games-panel:
+    get:
+      summary: Get sale games panel
+      tags:
+        - Sale Games Panel
+      responses:
+        '200':
+          description: Sale games panel
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+
+  /item:
+    get:
+      summary: Get item details
+      tags:
+        - Item
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: ID of the item to fetch
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Item not found
+
+  /highlighted-games-panel:
+    get:
+      summary: Get highlighted games panel
+      tags:
+        - Highlighted Games Panel
+      responses:
+        '200':
+          description: Highlighted games panel
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+
+  /header:
+    get:
+      summary: Get header information
+      tags:
+        - Header
+      responses:
+        '200':
+          description: Header information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  logo:
+                    type: string
+                  nav_links:
+                    type: array
+                    items:
+                      type: string
+
+  /games-list:
+    get:
+      summary: Get games list
+      tags:
+        - Games List
+      responses:
+        '200':
+          description: List of games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+
+  /game-display:
+    get:
+      summary: Get game display
+      tags:
+        - Game Display
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: ID of the game to display
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Game display
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          description: Game not found
+
+  /game-card:
+    get:
+      summary: Get game card
+      tags:
+        - Game Card
+      responses:
+        '200':
+          description: Game card
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+
+components:
+  schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Game Title"
+        price:
+          type: number
+          format: float
+          example: 59.99
+        description:
+          type: string
+          example: "An amazing game."
+        stock:
+          type: integer
+          example: 100
+    GameUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        stock:
+          type: integer
+    GameCreate:
+      type: object
+      required:
+        - name
+        - price
+        - stock
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        stock:
+          type: integer
+    Image:
+      type: object
+      properties:
+        id:
+          type: integer
+        path:
+          type: string
+        id_game:
+          type: integer
+        id_user:
+          type: integer
+    ImageUpdate:
+      type: object
+      properties:
+        path:
+          type: string
+        id_game:
+          type: integer
+    GraphicsCard:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    GameOrderDetails:
+      type: object
+      properties:
+        id_order:
+          type: integer
+        id_game:
+          type: integer
+        review_rating:
+          type: integer
+        review_comment:
+          type: string
+        review_date:
+          type: string
+          format: date-time
+    HelpSupport:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        type:
+          type: string
+        help_date:
+          type: string
+          format: date-time
+        id_buyer:
+          type: integer
+    HelpSupportCreate:
+      type: object
+      required:
+        - message
+        - type
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+    ContactForm:
+      type: object
+      required:
+        - name
+        - email
+        - subject
+        - message
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        subject:
+          type: string
+        message:
+          type: string
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Card:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        user_id:
+          type: integer
+    CardCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: integer
+    Administrator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+    AdministratorCreate:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+
+    Processor:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ProcessorCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+
+    OperatingSystem:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    OperatingSystemCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+
+    MemoryRAM:
+      type: object
+      properties:
+        id:
+          type: integer
+        size:
+          type: integer
+    MemoryRAMCreate:
+      type: object
+      required:
+        - size
+      properties:
+        size:
+          type: integer
+
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+        description:
+          type: string
+        done:
+          type: boolean
+    ItemCreate:
+      type: object
+      required:
+        - description
+      properties:
+        description:
+          type: string
+    ItemUpdate:
+      type: object
+      required:
+        - done
+      properties:
+        done:
+          type: boolean
+    GameCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+        id_game:
+          type: integer
+        id_category:
+          type: integer
+    CustomerSupportAdministrator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+
+    Seller:
+      type: object
+      properties:
+        id_user:
+          type: integer
+        rating:
+          type: number
+          format: float
+        total_sales_number:
+          type: integer
+        totalEarned:
+          type: number
+          format: float
+    SellerCreate:
+      type: object
+      required:
+        - id_user
+      properties:
+        id_user:
+          type: integer
+        rating:
+          type: number
+          format: float
+        total_sales_number:
+          type: integer
+        totalEarned:
+          type: number
+          format: float
+
+    Processor:
+      type: object
+      properties:
+        id:
+          type: integer
+        processor:
+          type: string
+    ProcessorCreate:
+      type: object
+      required:
+        - processor
+      properties:
+        processor:
+          type: string
+
+    Payment:
+      type: object
+      properties:
+        id:
+          type: integer
+        amount:
+          type: number
+          format: float
+        paymentDate:
+          type: string
+          format: date-time
+    PaymentCreate:
+      type: object
+      required:
+        - amount
+        - paymentDate
+      properties:
+        amount:
+          type: number
+          format: float
+        paymentDate:
+          type: string
+          format: date-time
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        total_price:
+          type: number
+          format: float
+        id_payment:
+          type: integer
+        id_buyer:
+          type: integer
+        order_date:
+          type: string
+          format: date-time
+    OrderCreate:
+      type: object
+      required:
+        - total_price
+        - id_payment
+        - id_buyer
+        - order_date
+      properties:
+        total_price:
+          type: number
+          format: float
+        id_payment:
+          type: integer
+        id_buyer:
+          type: integer
+        order_date:
+          type: string
+          format: date-time
+
+    OperatingSystem:
+      type: object
+      properties:
+        id:
+          type: integer
+        operatingsystem:
+          type: string
+    OperatingSystemCreate:
+      type: object
+      required:
+        - operatingsystem
+      properties:
+        operatingsystem:
+          type: string
+
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+        id_user:
+          type: integer
+        message:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    NotificationCreate:
+      type: object
+      required:
+        - id_user
+        - message
+        - created_at
+      properties:
+        id_user:
+          type: integer
+        message:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    MemoryRAM:
+      type: object
+      properties:
+        id:
+          type: integer
+        memoryram:
+          type: string
+    MemoryRAMCreate:
+      type: object
+      required:
+        - memoryram
+      properties:
+        memoryram:
+          type: string
+
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+        description:
+          type: string
+        done:
+          type: boolean
+    ItemCreate:
+      type: object
+      required:
+        - description
+      properties:
+        description:
+          type: string
+
+    Image:
+      type: object
+      properties:
+        id:
+          type: integer
+        image_path:
+          type: string
+        id_game:
+          type: integer
+        id_user:
+          type: integer
+    ImageCreate:
+      type: object
+      required:
+        - image_path
+        - id_game
+        - id_user
+      properties:
+        image_path:
+          type: string
+        id_game:
+          type: integer
+        id_user:
+          type: integer
+
+    SupportResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        response_message:
+          type: string
+        response_date:
+          type: string
+          format: date-time
+        id_support_message:
+          type: integer
+        id_seller:
+          type: integer
+    SupportResponseCreate:
+      type: object
+      required:
+        - response_message
+        - response_date
+        - id_support_message
+        - id_seller
+      properties:
+        response_message:
+          type: string
+        response_date:
+          type: string
+          format: date-time
+        id_support_message:
+          type: integer
+        id_seller:
+          type: integer
+    SupportResponseUpdate:
+      type: object
+      properties:
+        response_message:
+          type: string
+        response_date:
+          type: string
+          format: date-time
+        id_support_message:
+          type: integer
+        id_seller:
+          type: integer
+
+    ShoppingCartGame:
+      type: object
+      properties:
+        id:
+          type: integer
+        id_game:
+          type: integer
+        id_shoppingcart:
+          type: integer
+    ShoppingCartGameCreate:
+      type: object
+      required:
+        - id_game
+        - id_shoppingcart
+      properties:
+        id_game:
+          type: integer
+        id_shoppingcart:
+          type: integer
+    ShoppingCartGameUpdate:
+      type: object
+      properties:
+        id_game:
+          type: integer
+        id_shoppingcart:
+          type: integer
+
+    ShoppingCart:
+      type: object
+      properties:
+        id:
+          type: integer
+        total_price:
+          type: number
+          format: float
+    ShoppingCartCreate:
+      type: object
+      required:
+        - total_price
+      properties:
+        total_price:
+          type: number
+          format: float
+    ShoppingCartUpdate:
+      type: object
+      properties:
+        total_price:
+          type: number
+          format: float
+
+    Wishlist:
+      type: object
+      properties:
+        id:
+          type: integer
+        id_user:
+          type: integer
+        id_game:
+          type: integer
+    WishlistCreate:
+      type: object
+      required:
+        - id_user
+        - id_game
+      properties:
+        id_user:
+          type: integer
+        id_game:
+          type: integer
+    WishlistUpdate:
+      type: object
+      properties:
+        id_user:
+          type: integer
+        id_game:
+          type: integer
+
+    GameInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        stock:
+          type: integer
+        release_date:
+          type: string
+          format: date
+        rating:
+          type: number
+          format: float
+        seller:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+
+    FAQ:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: string
+        buyers:
+          type: array
+          items:
+            type: string
+        sellers:
+          type: array
+          items:
+            type: string
+        community:
+          type: array
+          items:
+            type: string
+
+    GameEdit:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        stock:
+          type: integer
+        operating_system:
+          type: string
+        memory_ram:
+          type: integer
+        processor:
+          type: string
+        graphics_card:
+          type: string
+        storage:
+          type: integer
+        categories:
+          type: array
+          items:
+            type: integer
+        images:
+          type: array
+          items:
+            type: string
+
+    CustomerSupportMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        type:
+          type: string
+        help_date:
+          type: string
+          format: date-time
+        buyer:
+          type: string
+
+    ContactForm:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        subject:
+          type: string
+        message:
+          type: string
+
+    Checkout:
+      type: object
+      properties:
+        card_name:
+          type: string
+        card_number:
+          type: string
+        expiry_date:
+          type: string
+        cvv:
+          type: string
+        order_items:
+          type: array
+          items:
+            type: object
+            properties:
+              game_id:
+                type: integer
+              quantity:
+                type: integer
+        total_price:
+          type: number
+          format: float

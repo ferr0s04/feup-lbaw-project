@@ -1,0 +1,250 @@
+/* Shopping Cart Page */
+
+.shopping-cart, .wishlist {
+    margin: 3em auto;
+    padding: 2em;
+    max-width: 1000px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.shopping-cart h1, .wishlist h1 {
+    text-align: center;
+    margin-bottom: 2em;
+    margin-top: 1em;
+    font-size: 24px;
+    color: #333;
+}
+
+.shopping-cart-table, .wishlist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 5em;
+}
+
+.shopping-cart-table th,
+.shopping-cart-table td, .wishlist-table th, .wishlist-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.shopping-cart-table td a, .wishlist-table td a {
+    text-decoration: none;
+}
+
+.shopping-cart-table th, .wishlist-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.shopping-cart-table .btn-remove, .wishlist-table .btn-remove {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.shopping-cart-table .btn-remove:hover, .wishlist-table .btn-remove:hover {
+    background-color: #bd2130;
+}
+
+.shopping-cart-checkout {
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.shopping-cart-checkout .btn-checkout {
+    background-color: #4d74ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    width: 200px;
+}
+
+.shopping-cart-checkout .btn-checkout:hover {
+    background-color: #385fec;
+}
+
+.wishlist-game-actions {
+    display: flex;
+    gap: 50px;
+}
+
+.wishlist-game-actions .btn-outline-dark {
+    height: 31px;
+    padding: 0 20px;
+}
+
+/* Checkout Page */
+
+.checkout-page {
+    justify-content: space-between;
+    padding: 70px 50px;
+}
+
+#payment-form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+.payment-info, .order-summary {
+    width: 48%;
+    box-sizing: border-box;
+}
+
+.payment-info h2, .order-summary h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.payment-info label {
+    display: block;
+    margin: 8px 0 4px;
+}
+
+.payment-info input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.stripe-card-element {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.stripe-card-element:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+#card-errors {
+    color: #d9534f;
+    margin-top: 8px;
+    font-size: 14px;
+}
+.stripe-card-element::placeholder {
+    color: #6c757d;
+    font-style: italic;
+}
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+.order-summary {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.order-items ul {
+    max-height: 250px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.order-items li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.item-name {
+    font-size: 1rem;
+}
+
+.item-price {
+    font-size: 1rem;
+    color: #333;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 2px solid #ddd;
+}
+
+.place-order-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4d74ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.place-order-btn:hover {
+    background-color: #385fec;
+}
+
+@media (max-width: 768px) {
+    #payment-form {
+        flex-direction: column;
+    }
+    .payment-info, .order-summary {
+        width: 100%;
+    }
+    .stripe-card-element {
+        font-size: 14px;
+    }
+    .order-summary {
+        margin-top: 20px;
+    }
+}
+
+/* Order Successful Page */
+
+#order-success {
+    min-height: calc(100vh - 350px);
+}
+
+.order-success {
+    margin: 50px;
+    width: 90%;
+    text-align: center;
+}
+
+.order-success i {
+    font-size: 5em;
+    padding: 20px 20px 50px;
+    color: #218838;
+}
